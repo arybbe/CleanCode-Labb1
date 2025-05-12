@@ -22,6 +22,11 @@ namespace WebShop.UnitOfWork
             _productSubject.Attach(new EmailNotification());
         }
 
+        public async Task<int> SaveChangesAsync()
+        {
+            
+        }
+
         public void NotifyProductAdded(Product product)
         {
             _productSubject.Notify(product);
