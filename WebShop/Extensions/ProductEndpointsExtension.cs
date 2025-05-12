@@ -16,23 +16,17 @@ public static class ProductEndpointsExtension
         return app;
     }
 
-    private static async Task<IResult> Add(IProductRepository repo, IUnitOfWork unitOfWork, Product product, NotificationContext notificationContext, HttpRequest req)
+    public static IResult Add(IProductRepository repo, IUnitOfWork unitOfWork, Product product)
     {
-        // Lägger till produkten via repository
+        // Behöver använda repository via Unit of Work för att lägga till produkter
+        if (product == null) return Results.BadRequest("Product cannot be null");
+
         repo.Add(product);
-
-        // Sparar förändringar
-
-        // Notifierar observatörer om att en ny produkt har lagts till
-        unitOfWork.NotifyProductAdded(product);
-
-        var q = req.Query["notificationType"].ToString();
-        Enum.TryParse<NotificationType>(q, true, out var type);
-        notificationContext.Notify(product, type);
-        return Results.Ok();
+        unitOfWork.NotifyProductAdded(product); // Notifiera observatörer om ny produkt
+        return Results.Created($"/api/products/{product.Id}", product);
     }
 
-    private static async Task<IResult> GetAll(IProductRepository repo)
+    public static IResult GetAll(IProductRepository repo)
     {
         // Behöver använda repository via Unit of Work för att hämta produkter
         var products = repo.GetAll();
