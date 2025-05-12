@@ -33,9 +33,8 @@ app.UseSwaggerUI();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
-app.MapControllers();
 app.MapProductEndpoints();
 
 
