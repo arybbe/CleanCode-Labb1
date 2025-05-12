@@ -23,7 +23,7 @@ public static class ProductEndpointsExtension
 
         repo.Add(product);
         unitOfWork.NotifyProductAdded(product); // Notifiera observatörer om ny produkt
-        return Results.Created($"/api/products/{product.Id}", product);
+        return Results.Ok(product);
     }
 
     public static IResult GetAll(IProductRepository repo)
