@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 // Repository & UoW
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ProductSubject>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Observer-pattern (får ligga kvar om du vill ha flera observatörer)

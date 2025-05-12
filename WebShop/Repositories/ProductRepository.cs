@@ -2,13 +2,18 @@
 
 public class ProductRepository : IProductRepository
 {
+    private readonly List<Product> _products = [];
+
     public IEnumerable<Product> GetAll()
     {
-        throw new NotImplementedException();
+        // Returnerar alla produkter
+        return _products;
     }
 
     public void Add(Product product)
     {
-        throw new NotImplementedException();
+        // Lägger till en ny produkt
+        if (product == null) throw new ArgumentNullException(nameof(product));
+        _products.Add(product);
     }
 }
